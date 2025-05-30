@@ -8,6 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - run: pip install numpy
-    - run: python -c "import numpy; print(numpy.__version__)"
-    - run: python -c "import os;print(os.getcwd(),os.listdir())"
+    - run: python -c "import os;print(os.getcwd(),os.listdir(),os.environ)"
