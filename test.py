@@ -4,7 +4,6 @@ from urllib.parse import urlencode,quote
 import json
 
 
-
 get_audience = lambda: json.load(urlopen("https://upload.pypi.org/_/oidc/audience"))["audience"]
 
 if "GITHUB_ACTIONS" in os.environ:
@@ -17,11 +16,6 @@ if "GITHUB_ACTIONS" in os.environ:
 else:
     raise RuntimeError("unknown environment")
 
-r = Request(
-    url = "https://upload.pypi.org/_/oidc/mint-token",
-    data = json.dumps({"token": oidc_token}).encode(),
-    headers = {"Content-Type": "application/json",},
-)
-r = urlopen(r).read()
-print(r)
-pypi_api_token = json.load(r)
+import requests
+r=requests.post("https://upload.pypi.org/_/oidc/mint-token", json={"token": oidc_token})
+print(r.text)
