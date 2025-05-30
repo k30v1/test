@@ -5,9 +5,7 @@ import json
 
 
 
-import requests
 get_audience = lambda: json.load(urlopen("https://upload.pypi.org/_/oidc/audience"))["audience"]
-#get_audience = lambda: requests.get("https://upload.pypi.org/_/oidc/audience").json()["audience"]
 
 if "GITHUB_ACTIONS" in os.environ:
     bearer = "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"] # workflow must have permissions "id-token: write"
@@ -16,19 +14,15 @@ if "GITHUB_ACTIONS" in os.environ:
     req = Request(url)
     req.add_header("Authorization", bearer)
     oidc_token = json.load(urlopen(req))["value"]
-    
-    #r = requests.get(url, headers={"Authorization": bearer})
-    #print(r.text)
-    #oidc_token = r.json()["value"]
-    
-    print('o',len(oidc_token))
 else:
     raise RuntimeError("unknown environment")
 
-import requests
-r = requests.post(
-    "https://upload.pypi.org/_/oidc/mint-token",
-    json={'token': oidc_token},
-    timeout=5,  # S113 wants a timeout
+r = Request(
+    url = "https://upload.pypi.org/_/oidc/mint-token",
+    data = json.dumps({"token": oidc_token}).encode(),
+    headers = {"Content-Type": "application/json", "Accept-encoding": "application/json"},
 )
-print(len(r.text), r.text)
+r = urlopen(r).read()
+print(r)
+pypi_api_token = json.load(r)
+#pypi_api_token = json.load(urlopen(req))["token"]
