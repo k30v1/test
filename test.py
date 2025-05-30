@@ -11,21 +11,15 @@ get_audience = lambda: json.load(urlopen("https://upload.pypi.org/_/oidc/audienc
 
 if "GITHUB_ACTIONS" in os.environ:
     bearer = "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"] # workflow must have permissions "id-token: write"
-    #url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] + 
     url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
     url += ("&" if "?" in url else "?") + "audience=" + get_audience()
-    #req = Request(url)
-    #req.add_header("Authorization", bearer)
-    #r = urlopen(req)
-    #r = r.read().decode()
-    #print(r)
-    #oidc_token = json.loads(r)["value"]
+    req = Request(url)
+    req.add_header("Authorization", bearer)
+    oidc_token = json.load(urlopen(req))["value"]
     
-    #c = HTTPSConnection()
-    
-    r = requests.get(url, headers={"Authorization": bearer})
-    print(r.text)
-    oidc_token = r.json()["value"]
+    #r = requests.get(url, headers={"Authorization": bearer})
+    #print(r.text)
+    #oidc_token = r.json()["value"]
     
     print('o',len(oidc_token))
 else:
