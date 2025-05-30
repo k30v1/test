@@ -10,4 +10,4 @@ if "GITHUB_ACTIONS" in os.environ: # do "Trusted publishing"
     req = Request(f"{url}?audience={get_audience()}")
     req.add_header("Authorization", bearer)
     oidc_token = json.load(urlopen(req))["value"]
-    print('o',len(oidc_token)
+    print('o',len(oidc_token))
