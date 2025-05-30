@@ -20,9 +20,8 @@ else:
 r = Request(
     url = "https://upload.pypi.org/_/oidc/mint-token",
     data = json.dumps({"token": oidc_token}).encode(),
-    headers = {"Content-Type": "application/json", "Accept-encoding": "application/json"},
+    headers = {"Content-Type": "application/json",},
 )
 r = urlopen(r).read()
 print(r)
 pypi_api_token = json.load(r)
-#pypi_api_token = json.load(urlopen(req))["token"]
