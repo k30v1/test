@@ -5,7 +5,7 @@ import json
 
 import requests
 get_audience = lambda: json.load(urlopen("https://upload.pypi.org/_/oidc/audience"))["audience"]
-get_audience = lambda: requests.get("https://upload.pypi.org/_/oidc/audience").json()["audience"]
+#get_audience = lambda: requests.get("https://upload.pypi.org/_/oidc/audience").json()["audience"]
 
 if "GITHUB_ACTIONS" in os.environ:
     url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] # workflow must have permissions "id-token: write"
