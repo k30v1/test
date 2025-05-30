@@ -16,7 +16,7 @@ if "GITHUB_ACTIONS" in os.environ:
     req = Request(url)
     req.add_header("Authorization", bearer)
     r = urlopen(req)
-    r = r.read()
+    r = r.read().decode()
     print(r)
     oidc_token = json.loads(r)["value"]
     
