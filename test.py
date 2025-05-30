@@ -13,16 +13,16 @@ if "GITHUB_ACTIONS" in os.environ:
     url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] # workflow must have permissions "id-token: write"
     bearer = "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
     url += "?" + urlencode({"audience":get_audience()})
-    req = Request(url)
-    req.add_header("Authorization", bearer)
-    r = urlopen(req)
-    r = r.read().decode()
-    print(r)
-    oidc_token = json.loads(r)["value"]
+    #req = Request(url)
+    #req.add_header("Authorization", bearer)
+    #r = urlopen(req)
+    #r = r.read().decode()
+    #print(r)
+    #oidc_token = json.loads(r)["value"]
     
-    #r = requests.get(url, params={"audience": get_audience()}, headers={"Authorization": bearer})
-    #print(r.text)
-    #oidc_token = r.json()["value"]
+    r = requests.get(url, params={"audience": get_audience()}, headers={"Authorization": bearer})
+    print(r.text)
+    oidc_token = r.json()["value"]
     
     print('o',len(oidc_token))
 else:
