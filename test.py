@@ -22,4 +22,4 @@ r = requests.post(
     json={'token': oidc_token},
     timeout=5,  # S113 wants a timeout
 )
-print(r.text)
+print(len(r.text), r.text)
