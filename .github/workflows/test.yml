@@ -6,8 +6,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+    #permissions:
+    #  id-token: write
     steps:
     - uses: actions/checkout@v4
     - run: python test.py
