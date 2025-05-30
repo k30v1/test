@@ -15,9 +15,11 @@ else:
     raise RuntimeError("unknown environment")
 
 req = Request("https://upload.pypi.org/_/oidc/mint-token",
-    data = json.dumps({"token": oidc_token}).encode()),
+    data = json.dumps({"token": oidc_token}).encode(),
     headers = {"Content-Type": "application/json"}
 )
 pypi_token = json.load(urlopen(req))["token"]
 print(pypi_token[:10])
+print(111, len(pypi_token))
+    
 print(111, len(pypi_token))
