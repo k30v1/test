@@ -10,4 +10,4 @@ jobs:
       id-token: write
     steps:
     - uses: actions/checkout@v4
-    - run: python -c "import os,base64;print(os.getcwd(),os.listdir(),base64.b64encode(os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']))"
+    - run: python -c "import os,base64;print(os.getcwd(),os.listdir(),base64.b64encode(os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN'].encode()))"
