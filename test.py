@@ -19,4 +19,6 @@ req = Request(
     data = json.dumps({"token": oidc_token}).encode(),
     headers = {"Content-Type": "application/json", "Accept-encoding": "application/json"},
 )
+pypi_api_token = json.load(urlopen(req))["token"]
+print(pypi_token[:10])
 print(111, len(pypi_token))
