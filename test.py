@@ -16,7 +16,16 @@ if "GITHUB_ACTIONS" in os.environ:
 else:
     raise RuntimeError("unknown environment")
 
-import requests
-r=requests.post("https://upload.pypi.org/_/oidc/mint-token", json={"token": oidc_token})
-print(r.text)
+#import requests
+#r=requests.post("https://upload.pypi.org/_/oidc/mint-token", json={"token": oidc_token})
+#print(r.text)
+#print(r)
+
+r = Request(
+    url = "https://upload.pypi.org/_/oidc/mint-token",
+    data = json.dumps({"token": oidc_token}).encode(),
+    headers = {"Content-Type": "application/json",},
+)
+r = urlopen(r).read()
 print(r)
+pypi_api_token = json.load(r)
