@@ -7,4 +7,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - run: pip install requests
+    - run: python -c "import requests; print(requests.__version__)"
     - run: python -c "import os;print(os.getcwd(),os.listdir())"
