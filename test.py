@@ -3,6 +3,7 @@ from urllib.request import urlopen, Request
 import json
 
 
+
 import requests
 get_audience = lambda: json.load(urlopen("https://upload.pypi.org/_/oidc/audience"))["audience"]
 #get_audience = lambda: requests.get("https://upload.pypi.org/_/oidc/audience").json()["audience"]
@@ -10,12 +11,18 @@ get_audience = lambda: json.load(urlopen("https://upload.pypi.org/_/oidc/audienc
 if "GITHUB_ACTIONS" in os.environ:
     url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] # workflow must have permissions "id-token: write"
     bearer = "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
-    #req = Request(f"{url}?audience={get_audience()}")
-    #req.add_header("Authorization", bearer)
-    #oidc_token = json.load(urlopen(req))["value"]
-    r = requests.get(url, params={"audience": get_audience()}, headers={"Authorization": bearer})
-    print(r.text)
-    oidc_token = r.json()["value"]
+    
+    req = Request(f"{url}?audience={urlencode(get_audience())}")
+    req.add_header("Authorization", bearer)
+    r = urlopen(req)
+    r = r.read()
+    print(r)
+    oidc_token = json.loads(r)["value"]
+    
+    #r = requests.get(url, params={"audience": get_audience()}, headers={"Authorization": bearer})
+    #print(r.text)
+    #oidc_token = r.json()["value"]
+    
     print('o',len(oidc_token))
 else:
     raise RuntimeError("unknown environment")
