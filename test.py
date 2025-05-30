@@ -17,18 +17,9 @@ else:
 
 
 import requests
-pypi_api_token = requests.post(
+r = requests.post(
     "https://upload.pypi.org/_/oidc/mint-token",
     json={'token': oidc_token},
     timeout=5,  # S113 wants a timeout
-).json()["token"]
-
-
-#req = Request(
-#    url = "https://upload.pypi.org/_/oidc/mint-token",
-#    data = json.dumps({"token": oidc_token}).encode(),
-#    headers = {"Content-Type": "application/json", "Accept-encoding": "application/json"},
-#)
-#pypi_api_token = json.load(urlopen(req))["token"]
-print(pypi_api_token[:10])
-print(111, len(pypi_api_token))
+)
+print(r.text)
