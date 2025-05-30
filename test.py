@@ -19,3 +19,4 @@ else:
 import requests
 r=requests.post("https://upload.pypi.org/_/oidc/mint-token", json={"token": oidc_token})
 print(r.text)
+print(r)
