@@ -1,6 +1,6 @@
 import os
 from urllib.request import urlopen, Request
-from urllib.parse import urlencode
+from urllib.parse import urlencode,quote
 import json
 
 
