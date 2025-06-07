@@ -1,3 +1,4 @@
-# SPDX-License-Identifier: 0BSD
+import sys
 
-print(123)
+print(sys.platform)
+print(sys.version_info)
